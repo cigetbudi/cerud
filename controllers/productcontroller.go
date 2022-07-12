@@ -61,3 +61,16 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("COntent-Type", "application/json")
 	json.NewEncoder(w).Encode(p)
 }
+
+func DeleteProduct(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	pId := mux.Vars(r)["id"]
+	if !checkIfProductExists(pId) {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode("Produk tidak dtemukan")
+		return
+	}
+	var p entities.Product
+	database.Debe.Delete(&p, pId)
+	json.NewEncoder(w).Encode("Produk berhasil dihapus")
+}
