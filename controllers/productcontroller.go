@@ -39,3 +39,11 @@ func GetProductById(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(p)
 
 }
+
+func GetProducts(w http.ResponseWriter, r *http.Request) {
+	var ps []entities.Product
+	database.Debe.Find(&ps)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(ps)
+}
