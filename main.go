@@ -25,7 +25,7 @@ func main() {
 	RegisterProductRoutes(r)
 
 	//jalankan server
-	log.Println(fmt.Println("Mulai jalankan server di port %s", AppConfig.Port))
+	log.Println(fmt.Sprintf("Starting Server on port %s", AppConfig.Port))
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%v", AppConfig.Port), r))
 }
 

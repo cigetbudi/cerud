@@ -14,6 +14,7 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 	var p entities.Product
 	json.NewDecoder(r.Body).Decode(&p)
 	database.Debe.Create(&p)
+	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(p)
 
 }
@@ -30,6 +31,7 @@ func checkIfProductExists(productId string) bool {
 func GetProductById(w http.ResponseWriter, r *http.Request) {
 	pId := mux.Vars(r)["id"]
 	if !checkIfProductExists(pId) {
+		w.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(w).Encode("Product tidak ditemukan")
 		return
 	}
@@ -51,6 +53,7 @@ func GetProducts(w http.ResponseWriter, r *http.Request) {
 func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	pId := mux.Vars(r)["id"]
 	if !checkIfProductExists(pId) {
+		w.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(w).Encode("Produk tidak ditemukan")
 		return
 	}
