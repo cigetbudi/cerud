@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 )
@@ -25,8 +26,11 @@ func main() {
 	RegisterProductRoutes(r)
 
 	//jalankan server
-	log.Println(fmt.Sprintf("Starting Server on port %s", AppConfig.Port))
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%v", AppConfig.Port), r))
+
+	// route.Start(":3435")
+	port := os.Getenv("PORT")
+	log.Println(fmt.Sprintf("Starting Server on port %s", port))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%v", port), r))
 }
 
 func RegisterProductRoutes(r *mux.Router) {

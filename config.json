@@ -1,4 +1,4 @@
 {
-    "connection_string" : "root:Password@tcp(127.0.0.1:3306)/crud_demo",
+    "connection_string" : "freedb_user_pr95:EpJ8tP#Nyz8BDDW@tcp(sql.freedb.tech:3306)/freedb_crud_demo",
     "port" : 8080 
 }
