@@ -47,3 +47,17 @@ func GetProducts(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(ps)
 }
+
+func UpdateProduct(w http.ResponseWriter, r *http.Request) {
+	pId := mux.Vars(r)["id"]
+	if !checkIfProductExists(pId) {
+		json.NewEncoder(w).Encode("Produk tidak ditemukan")
+		return
+	}
+	var p entities.Product
+	database.Debe.First(&p, pId)
+	json.NewDecoder(r.Body).Decode(&p)
+	database.Debe.Save(&p)
+	w.Header().Set("COntent-Type", "application/json")
+	json.NewEncoder(w).Encode(p)
+}
