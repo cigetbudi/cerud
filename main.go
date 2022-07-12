@@ -1,6 +1,7 @@
 package main
 
 import (
+	"cerud/controllers"
 	"cerud/database"
 	"fmt"
 	"log"

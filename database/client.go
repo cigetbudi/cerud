@@ -8,11 +8,11 @@ import (
 	"gorm.io/gorm"
 )
 
-var db *gorm.DB
+var Debe *gorm.DB
 var err error
 
 func Connect(connectionString string) {
-	db, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{})
+	Debe, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 		panic("Ggal terhubung dengna database")
@@ -21,6 +21,6 @@ func Connect(connectionString string) {
 }
 
 func Migrate() {
-	db.AutoMigrate(&entities.Product{})
+	Debe.AutoMigrate(&entities.Product{})
 	log.Println("Migrasi database berhasil")
 }
