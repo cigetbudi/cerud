@@ -1,9 +1,31 @@
 package main
 
-import "github.com/gorilla/mux"
+import (
+	"cerud/database"
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/gorilla/mux"
+)
 
 func main() {
+	//load config.json pakai viper
+	LoadConfig()
 
+	//migrasi data
+	database.Connect(AppConfig.ConnectionString)
+	database.Migrate()
+
+	//init routes
+	r := mux.NewRouter().StrictSlash(true)
+
+	//regiter routes
+	RegisterProductRoutes(r)
+
+	//jalankan server
+	log.Println(fmt.Println("Mulai jalankan server di port %s", AppConfig.Port))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%v", AppConfig.Port), r))
 }
 
 func RegisterProductRoutes(r *mux.Router) {
