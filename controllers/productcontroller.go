@@ -77,3 +77,8 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	database.Debe.Delete(&p, pId)
 	json.NewEncoder(w).Encode("Produk berhasil dihapus")
 }
+
+func HomeHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	http.ServeFile(w, r, "./static/index.html")
+}
